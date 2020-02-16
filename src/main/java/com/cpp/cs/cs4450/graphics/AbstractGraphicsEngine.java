@@ -84,5 +84,7 @@ public abstract class AbstractGraphicsEngine implements GraphicsEngine {
         return renders.size();
     }
 
+    public List<Renderable> getRenders(){ return renders; }
+
 }
 

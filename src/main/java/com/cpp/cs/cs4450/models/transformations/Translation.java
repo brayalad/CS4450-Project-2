@@ -1,6 +1,7 @@
 package com.cpp.cs.cs4450.models.transformations;
 
 import com.cpp.cs.cs4450.models.grid.Vertex;
+import com.cpp.cs.cs4450.util.math.MathUtils;
 
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -8,15 +9,15 @@ import java.util.Objects;
 public class Translation extends AbstractTransformation implements Transformation {
     private final double dx;
     private final double dy;
-    private final double[][] matrix;
+    private final double[][] transformationMatrix;
 
     public Translation(final double dx, final double dy) {
         this.dx = dx;
         this.dy = dy;
-        this.matrix = new double[][]{
-                {1, 0, dx},
-                {0, 1, dy},
-                {0, 0, 1}
+        this.transformationMatrix = new double[][]{
+                { 1.0, 0.0, dx },
+                { 0.0, 1.0, dy },
+                { 0.0, 0.0, 1.0 }
         };
     }
 
@@ -27,8 +28,11 @@ public class Translation extends AbstractTransformation implements Transformatio
 
     @Override
     protected void transform(final Vertex vertex){
-        vertex.setX(vertex.getX() + dx);
-        vertex.setY(vertex.getY() + dy);
+        final double x = vertex.getX();
+        final double y = vertex.getY();
+
+        vertex.setX(x + dx);
+        vertex.setY(y + dy);
     }
 
     @Override
@@ -52,4 +56,8 @@ public class Translation extends AbstractTransformation implements Transformatio
                 "\tY:\t" + dy + "\n";
     }
 
+    @Override
+    public double[][] getTransformationMatrix() {
+        return transformationMatrix;
+    }
 }

@@ -1,9 +1,13 @@
 package com.cpp.cs.cs4450.ui;
 
+import java.util.Arrays;
+
 /**
  * Interface for the user to interact with the program,
  */
 public interface UserInterface {
+
+    String DEFAULT_STRING_JOIN_DELIMITER = " ";
 
     /**
      * Checks if the program has been signaled to end.
@@ -37,5 +41,25 @@ public interface UserInterface {
      * Shuts down the user interface.
      */
     void shutdown();
+
+    static void println(String ...s){
+        Arrays.stream(s).forEach(UserInterface::println);
+    }
+
+    static void print(String ...s){
+        print(String.join(DEFAULT_STRING_JOIN_DELIMITER, s));
+    }
+
+    static void println(String s){
+        System.out.println(s);
+    }
+
+    static void print(String s){
+        System.out.print(s);
+    }
+
+    static void println(){
+        System.out.println();
+    }
 
 }

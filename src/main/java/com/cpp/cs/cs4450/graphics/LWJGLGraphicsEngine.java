@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +36,8 @@ public final class LWJGLGraphicsEngine extends AbstractGraphicsEngine implements
      * The {@link org.lwjgl.opengl.DisplayMode} to be used by the engine
      */
     private final DisplayMode displayMode;
+
+    private final Map<DisplayShape, Color> originalDisplayColors = new HashMap<>();
 
     /**
      * Constructor
@@ -67,6 +70,13 @@ public final class LWJGLGraphicsEngine extends AbstractGraphicsEngine implements
         initDisplay(title);
         initGL11();
         transform();
+        for(final Renderable render : this.renders){
+            if(render instanceof DisplayShape){
+                final DisplayShape displayShape = (DisplayShape) render;
+
+                originalDisplayColors.put(displayShape, displayShape.getColor());
+            }
+        }
     }
 
     /**
@@ -101,10 +111,14 @@ public final class LWJGLGraphicsEngine extends AbstractGraphicsEngine implements
      * @param colors colors to change to
      */
     @Override
-    public void changeColors(final Map<Class<? extends DisplayShape>, Color> colors) {
+    public void changeColors(final Map<DisplayShape, Color> colors) {
+        final Map<DisplayShape, Color> map = (colors == null) ? originalDisplayColors : colors;
         for(final Renderable render : renders){
-            if(render instanceof DisplayShape && colors.containsKey(render.getClass())){
-                ((DisplayShape) render).setColor(colors.get(render.getClass()));
+            if(render instanceof DisplayShape){
+                final DisplayShape displayShape = (DisplayShape) render;
+                if(map.containsKey(displayShape)){
+                    displayShape.setColor(map.get(displayShape));
+                }
             }
         }
     }

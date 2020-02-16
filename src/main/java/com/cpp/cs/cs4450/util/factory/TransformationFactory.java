@@ -19,7 +19,6 @@ import java.util.stream.Stream;
 public final class TransformationFactory {
     private static final String UNSUPPORTED_TRANSFORMATION_ERROR_FORMAT = "[%s] is not a supported transformation.";
 
-
     private static final String PAIR_DELIMITER = " ";
 
     public static final Map<String, Class<? extends Transformation>> TRANSFORMATIONS = Collections.unmodifiableMap(
@@ -42,7 +41,7 @@ public final class TransformationFactory {
         return createTransformation(TRANSFORMATIONS.get(type), transformation);
     }
 
-    public static Transformation createTransformation( final Class<? extends Transformation> type, final String transformation){
+    public static Transformation createTransformation(final Class<? extends Transformation> type, final String transformation){
         if(type == Rotation.class) {
             return createRotation(transformation);
         } else if(type == Scaling.class) {

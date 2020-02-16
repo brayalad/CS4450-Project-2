@@ -98,7 +98,7 @@ public class Line extends DisplayShape implements Renderable {
     @Override
     public void draw(){
         GL11.glBegin(GL11.GL_POINTS);
-        GL11.glColor3f(color.getRed(), color.getGreen(), color.getBlue());
+        GL11.glColor4d(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
         drawLineByCoordinates(start.getKey(), start.getValue(), end.getKey(), end.getValue());
         GL11.glEnd();
     }

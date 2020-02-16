@@ -12,6 +12,9 @@ import java.util.Map.Entry;
 public final class CommonUtils {
     private static final String DEFAULT_PAIR_DELIMITER = " ";
     private static final String NEGATIVE_NUMBER_PREFIX = "-";
+    private static final String NUMBER_FORMAT_ERROR_MESSAGE = "An Number Format Error was thrown with message: [%s].\n" +
+            "This sometimes happens when the coordinates are copied and pasted into the Coordinates.txt file\n" +
+            "Please type in the negative coordinates by hand since the '" + NEGATIVE_NUMBER_PREFIX + "' symbol is sometimes not recognized when pasted.";
 
 
     private CommonUtils(){}
@@ -21,11 +24,15 @@ public final class CommonUtils {
     }
 
     public static Entry<Double, Double> parsePairToDouble(final String s, final String regex){
-        final Double[] pair = Arrays.stream(s.split(regex))
-                                .map(Double::parseDouble)
-                                .toArray(Double[]::new);
+        try {
+            final Double[] pair = Arrays.stream(s.split(regex))
+                    .map(Double::parseDouble)
+                    .toArray(Double[]::new);
 
-        return new SimpleEntry<>(pair[0], pair[1]);
+            return new SimpleEntry<>(pair[0], pair[1]);
+        } catch (NumberFormatException e){
+            throw new RuntimeException(String.format(NUMBER_FORMAT_ERROR_MESSAGE, e.getLocalizedMessage()));
+        }
     }
 
     public static double[] pairToArray(final Entry<Double, Double> pair){

@@ -1,5 +1,6 @@
 package com.cpp.cs.cs4450.models.transformations;
 
+import com.cpp.cs.cs4450.graphics.Transformable;
 import com.cpp.cs.cs4450.models.grid.Vertex;
 
 import java.util.AbstractMap.SimpleEntry;
@@ -10,7 +11,9 @@ public class Scaling extends AbstractTransformation implements Transformation{
     private final double sx;
     private final double sy;
     private final Entry<Double, Double> pivot;
-    private final double[][] matrix;
+    private final Translation translation;
+    private final Translation recenter;
+    private final double[][] transformationMatrix;
 
 
     public Scaling(final double sx, final double sy, final double px, final double py){
@@ -21,16 +24,28 @@ public class Scaling extends AbstractTransformation implements Transformation{
         this.sx = sx;
         this.sy = sy;
         this.pivot = pivot;
-        this.matrix = new double[][]{
-                {sx, 0.0},
-                {0.0, sy}
+        this.translation = new Translation(pivot.getKey(), pivot.getValue());
+        this.recenter = new Translation(-pivot.getKey(), - pivot.getValue());
+        this.transformationMatrix = new double[][]{
+                { sx, 0.0 },
+                { 0.0, sy }
         };
     }
 
     @Override
+    public void transform(final Transformable transformable){
+        translation.transform(transformable);
+        transform(transformable.getVertices());
+        recenter.transform(transformable);
+    }
+
+    @Override
     protected void transform(final Vertex vertex){
-        vertex.setX(((vertex.getX() - pivot.getKey()) * sx) + pivot.getKey());
-        vertex.setY(((vertex.getY() - pivot.getValue()) * sy) + pivot.getValue());
+        final double x = vertex.getX();
+        final double y = vertex.getY();
+
+        vertex.setX(x * sx);
+        vertex.setY(y * sy);
     }
 
     @Override
@@ -56,4 +71,8 @@ public class Scaling extends AbstractTransformation implements Transformation{
                 "\tPivot:\t[" + pivot.getKey() + ", " + pivot.getValue() + "]\n";
     }
 
+    @Override
+    public double[][] getTransformationMatrix() {
+        return transformationMatrix;
+    }
 }

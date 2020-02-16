@@ -3,6 +3,7 @@ package com.cpp.cs.cs4450.graphics;
 import com.cpp.cs.cs4450.models.shapes.DisplayShape;
 
 import java.awt.Color;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,6 +43,8 @@ public interface GraphicsEngine {
      */
     boolean removeRenderable(Renderable renderable);
 
+    List<Renderable> getRenders();
+
     /**
      * Method that returns the number of objects to render.
      *
@@ -59,6 +62,6 @@ public interface GraphicsEngine {
      *
      * @param colors colors to change to
      */
-    void changeColors(Map<Class<? extends DisplayShape>, Color> colors);
+    void changeColors(Map<DisplayShape, Color> colors);
 
 }

@@ -3,7 +3,10 @@ package com.cpp.cs.cs4450.util.filler;
 import com.cpp.cs.cs4450.graphics.Fillable;
 import com.cpp.cs.cs4450.models.grid.Vertex;
 import com.cpp.cs.cs4450.models.shapes.Line;
+import com.cpp.cs.cs4450.util.collections.Graph;
 import com.cpp.cs.cs4450.util.common.CommonUtils;
+import com.cpp.cs.cs4450.util.sorting.MergeSort;
+import com.cpp.cs.cs4450.util.sorting.QuickSort;
 
 
 import java.awt.Color;
@@ -13,18 +16,33 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 public final class PolygonFiller {
-    private static final Comparator<EdgeBucket> EDGE_COMPARATOR = new EdgeComparator();
 
     private PolygonFiller(){}
 
     public static void fill(final Fillable fillable){
         fill(fillable.getVertices(), fillable.getColor());
+    }
+
+    public static void fill(final Graph<Vertex> graph, final Color color){
+        fill(graph.toMap(), color);
+    }
+
+    public static void fill(final Map<Vertex, List<Vertex>> vertices, final Color color){
+        final Set<EdgeBucket> edgeBuckets = new HashSet<>();
+        for(final Vertex source : vertices.keySet()){
+            for(final Vertex destination : vertices.get(source)){
+                edgeBuckets.add(new EdgeBucket(source, destination));
+            }
+        }
+
+        fill(edgeBuckets, color);
     }
 
     public static void fill(final List<Vertex> vertices, final Color color){
@@ -41,6 +59,10 @@ public final class PolygonFiller {
             edgeBuckets.add(edgeBucket);
         }
 
+        fill(edgeBuckets, color);
+    }
+
+    private static void fill(final Set<EdgeBucket> edgeBuckets, final Color color){
         final SortedSet<EdgeBucket> globalEdgeBucketTable = new TreeSet<>();
         for(final EdgeBucket edgeBucket : edgeBuckets){
             if(!CommonUtils.isInfinity(edgeBucket.inverseSlope)){
@@ -82,7 +104,6 @@ public final class PolygonFiller {
         } while(!activeEdgeBucketTable.isEmpty());
     }
 
-
     private static final class EdgeBucket implements Comparable<EdgeBucket> {
         private final double yMin;
         private final double yMax;
@@ -107,7 +128,19 @@ public final class PolygonFiller {
 
         @Override
         public int compareTo(final EdgeBucket other) {
-            return EDGE_COMPARATOR.compare(this, other);
+            if(this.yMin < other.yMin){
+                return -1;
+            } else if(this.yMin == other.yMin){
+                if(this.xVal < other.xVal){
+                    return -1;
+                } else if(this.xVal == other.xVal){
+                    return Double.compare(this.yMax, other.yMax);
+                } else {
+                    return 1;
+                }
+            } else {
+                return 1;
+            }
         }
 
         @Override
@@ -135,26 +168,6 @@ public final class PolygonFiller {
                     "\n\tI-Slope:\t" + inverseSlope;
         }
 
-    }
-
-    private static class EdgeComparator implements Comparator<EdgeBucket> {
-
-        @Override
-        public int compare(final EdgeBucket e1, final EdgeBucket e2) {
-            if(e1.yMin < e2.yMin){
-                return -1;
-            } else if(e1.yMin == e2.yMin){
-                if(e1.xVal < e2.xVal){
-                    return -1;
-                } else if(e1.xVal == e2.xVal){
-                    return Double.compare(e1.yMax, e2.yMax);
-                } else {
-                    return 1;
-                }
-            } else {
-                return 1;
-            }
-        }
     }
 
 }
