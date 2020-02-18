@@ -19,14 +19,12 @@ import java.util.Set;
 
 public class Polygon extends DisplayShape implements Transformable, Renderable, Fillable {
     private final List<Vertex> vertices;
-    private final Graph<Vertex> graph;
     private final Set<Transformation> transformations;
 
 
     public Polygon(final Color color, final List<Vertex> vertices, final Set<Transformation> transformations) {
         super(color);
         this.vertices = vertices;
-        this.graph = PolygonFactory.vertexListToGraph(vertices);
         this.transformations = transformations;
     }
 
@@ -90,10 +88,6 @@ public class Polygon extends DisplayShape implements Transformable, Renderable, 
     public String toString(){
         return vertices.toString();
     }
-
-    public Graph<Vertex> getVerticesGraph(){ return graph; }
-
-    public Map<Vertex, List<Vertex>> asMap(){ return graph.toMap(); }
 
     @Override
     public boolean equals(final Object obj){

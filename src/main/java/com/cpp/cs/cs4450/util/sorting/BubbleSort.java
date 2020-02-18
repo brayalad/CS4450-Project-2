@@ -11,7 +11,7 @@ public final class BubbleSort {
         optimizedBubbleSort(array);
     }
 
-    private static void standardBubbleSort(int[] array){
+    public static void standardBubbleSort(int[] array){
         int n = array.length - 1;
         for(int i = 0; i < n; ++i){
             for(int j = 0; j < n - i; ++j){
@@ -22,7 +22,7 @@ public final class BubbleSort {
         }
     }
 
-    private static void optimizedBubbleSort(int[] array){
+    public static void optimizedBubbleSort(int[] array){
         boolean sorted = false;
 
         int n = array.length - 1;
@@ -32,6 +32,7 @@ public final class BubbleSort {
             for(int j = 0; j < n - i; ++j){
                 if(array[j] > array[j + 1]){
                     Sort.swap(array, j, j + 1);
+                    sorted = false;
                 }
             }
             ++i;

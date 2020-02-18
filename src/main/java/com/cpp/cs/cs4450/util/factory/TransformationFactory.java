@@ -4,7 +4,7 @@ import com.cpp.cs.cs4450.models.transformations.Rotation;
 import com.cpp.cs.cs4450.models.transformations.Scaling;
 import com.cpp.cs.cs4450.models.transformations.Transformation;
 import com.cpp.cs.cs4450.models.transformations.Translation;
-import com.cpp.cs.cs4450.util.common.CommonUtils;
+import com.cpp.cs.cs4450.util.common.Utils;
 
 import java.util.AbstractMap.SimpleImmutableEntry;
 import java.util.Arrays;
@@ -80,7 +80,7 @@ public final class TransformationFactory {
     }
 
     public static Translation createTranslation(final String t){
-        return createTranslation(CommonUtils.parsePairToDouble(t, PAIR_DELIMITER));
+        return createTranslation(Utils.parsePairToDouble(t, PAIR_DELIMITER));
     }
 
     public static Translation createTranslation(final Entry<Double, Double> entry){

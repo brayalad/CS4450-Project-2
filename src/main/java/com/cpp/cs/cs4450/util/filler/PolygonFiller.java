@@ -4,9 +4,7 @@ import com.cpp.cs.cs4450.graphics.Fillable;
 import com.cpp.cs.cs4450.models.grid.Vertex;
 import com.cpp.cs.cs4450.models.shapes.Line;
 import com.cpp.cs.cs4450.util.collections.Graph;
-import com.cpp.cs.cs4450.util.common.CommonUtils;
-import com.cpp.cs.cs4450.util.sorting.MergeSort;
-import com.cpp.cs.cs4450.util.sorting.QuickSort;
+import com.cpp.cs.cs4450.util.common.Utils;
 
 
 import java.awt.Color;
@@ -35,91 +33,93 @@ public final class PolygonFiller {
     }
 
     public static void fill(final Map<Vertex, List<Vertex>> vertices, final Color color){
-        final Set<EdgeBucket> edgeBuckets = new HashSet<>();
+        final Set<Edge> edges = new HashSet<>();
         for(final Vertex source : vertices.keySet()){
             for(final Vertex destination : vertices.get(source)){
-                edgeBuckets.add(new EdgeBucket(source, destination));
+                edges.add(new Edge(source, destination));
             }
         }
 
-        fill(edgeBuckets, color);
+        fill(edges, color);
     }
 
     public static void fill(final List<Vertex> vertices, final Color color){
-        final Set<EdgeBucket> edgeBuckets = new HashSet<>();
+        final Set<Edge> edges = new HashSet<>();
 
         final int n = vertices.size();
         for(int i = 0; i < n; ++i){
-            EdgeBucket edgeBucket;
+            Edge edge;
             if(i == n - 1){
-                edgeBucket = new EdgeBucket(vertices.get(i), vertices.get(0));
+                edge = new Edge(vertices.get(i), vertices.get(0));
             } else {
-                edgeBucket = new EdgeBucket(vertices.get(i), vertices.get(i + 1));
+                edge = new Edge(vertices.get(i), vertices.get(i + 1));
             }
-            edgeBuckets.add(edgeBucket);
+            edges.add(edge);
         }
 
-        fill(edgeBuckets, color);
+        fill(edges, color);
     }
 
-    private static void fill(final Set<EdgeBucket> edgeBuckets, final Color color){
-        final SortedSet<EdgeBucket> globalEdgeBucketTable = new TreeSet<>();
-        for(final EdgeBucket edgeBucket : edgeBuckets){
-            if(!CommonUtils.isInfinity(edgeBucket.inverseSlope)){
-                globalEdgeBucketTable.add(edgeBucket);
+    private static void fill(final Set<Edge> edges, final Color color){
+        final SortedSet<Edge> globalEdgeTable = new TreeSet<>();
+        for(final Edge edge : edges){
+            if(!Utils.isInfinity(edge.inverseSlope)){
+                globalEdgeTable.add(edge);
             }
         }
 
-        double scanline = globalEdgeBucketTable.first().yMin;
-        final List<EdgeBucket> activeEdgeBucketTable = new ArrayList<>();
+        double scanline = globalEdgeTable.first().yMin;
+        final List<Edge> activeEdgeTable = new ArrayList<>();
         do {
             final double currentScanline = scanline;
 
-            final Iterator<EdgeBucket> globalEdgeTableIterator = globalEdgeBucketTable.iterator();
+            final Iterator<Edge> globalEdgeTableIterator = globalEdgeTable.iterator();
             while (globalEdgeTableIterator.hasNext()){
-                final EdgeBucket globalEdgeBucket = globalEdgeTableIterator.next();
-                if((int) globalEdgeBucket.yMin == (int) currentScanline){
-                    activeEdgeBucketTable.add(globalEdgeBucket);
+                final Edge globalEdge = globalEdgeTableIterator.next();
+                if((int) globalEdge.yMin == (int) currentScanline){
+                    activeEdgeTable.add(globalEdge);
                     globalEdgeTableIterator.remove();
                 }
             }
 
-            Collections.sort(activeEdgeBucketTable);
+            if(!Utils.isInOrder(activeEdgeTable)){
+                Collections.sort(activeEdgeTable);
+            }
 
             boolean parity = true;
-            for(int i = 0; i < activeEdgeBucketTable.size() - 1; ++i){
+            for(int i = 0; i < activeEdgeTable.size() - 1; ++i){
                 if(parity){
-                    final Vertex start = Vertex.of(activeEdgeBucketTable.get(i).xVal, currentScanline);
-                    final Vertex end = Vertex.of(activeEdgeBucketTable.get(i + 1).xVal, currentScanline);
+                    final Vertex start = Vertex.of(activeEdgeTable.get(i).xVal, currentScanline);
+                    final Vertex end = Vertex.of(activeEdgeTable.get(i + 1).xVal, currentScanline);
 
                     Line.drawLine(color, start, end);
                 }
                 parity = !parity;
             }
 
-            activeEdgeBucketTable.forEach(ae -> ae.xVal += ae.inverseSlope);
-            activeEdgeBucketTable.removeIf(ae -> (int) ae.yMax == (int) currentScanline);
+            activeEdgeTable.forEach(ae -> ae.xVal += ae.inverseSlope);
+            activeEdgeTable.removeIf(ae -> (int) ae.yMax == (int) currentScanline);
 
             ++scanline;
-        } while(!activeEdgeBucketTable.isEmpty());
+        } while(!activeEdgeTable.isEmpty());
     }
 
-    private static final class EdgeBucket implements Comparable<EdgeBucket> {
+    private static final class Edge implements Comparable<Edge> {
         private final double yMin;
         private final double yMax;
         private final double inverseSlope;
         private double xVal;
 
-        private EdgeBucket(final Vertex v1, final Vertex v2){
+        private Edge(final Vertex v1, final Vertex v2){
             this(
-                    CommonUtils.minVertex(v1, v2).getY(),
-                    CommonUtils.maxVertex(v1, v2).getY(),
-                    (1.0 / CommonUtils.computeSlope(v1, v2)),
-                    CommonUtils.minVertex(v1, v2).getX()
+                    Utils.minVertex(v1, v2).getY(),
+                    Utils.maxVertex(v1, v2).getY(),
+                    (1.0 / Utils.computeSlope(v1, v2)),
+                    Utils.minVertex(v1, v2).getX()
             );
         }
 
-        private EdgeBucket(final double yMin, final double yMax, final double inverseSlope, final double xVal) {
+        private Edge(final double yMin, final double yMax, final double inverseSlope, final double xVal) {
             this.yMin = yMin;
             this.yMax = yMax;
             this.inverseSlope = inverseSlope;
@@ -127,7 +127,7 @@ public final class PolygonFiller {
         }
 
         @Override
-        public int compareTo(final EdgeBucket other) {
+        public int compareTo(final Edge other) {
             if(this.yMin < other.yMin){
                 return -1;
             } else if(this.yMin == other.yMin){
@@ -151,7 +151,7 @@ public final class PolygonFiller {
                 return false;
             }
 
-            final EdgeBucket other = (EdgeBucket) obj;
+            final Edge other = (Edge) obj;
 
             return Objects.equals(this.yMin, other.yMin) &&
                     Objects.equals(this.xVal, other.xVal) &&
@@ -166,6 +166,22 @@ public final class PolygonFiller {
                     "\n\tY-Max:\t" + yMax +
                     "\n\tX-Val:\t" + xVal +
                     "\n\tI-Slope:\t" + inverseSlope;
+        }
+
+        @Override
+        public int hashCode(){
+            return Objects.hash(yMin, xVal, yMax, inverseSlope);
+        }
+
+    }
+
+    private static final class EdgeComparator implements Comparator<Edge> {
+
+        private EdgeComparator(){}
+
+        @Override
+        public int compare(final Edge e1, Edge e2) {
+            return e1.compareTo(e2);
         }
 
     }

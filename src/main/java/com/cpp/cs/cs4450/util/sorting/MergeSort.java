@@ -1,5 +1,6 @@
 package com.cpp.cs.cs4450.util.sorting;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -21,27 +22,28 @@ public final class MergeSort {
     }
 
     public static void iterativeMergeSort(int[] array){
-        iterativeMergeSort(array, array.clone(), 0, array.length - 1);
-    }
-
-    private static void iterativeMergeSort(int[] array, int[] temp, int low, int high){
-        for(int i = 1; i <= high - low; i *= 2){
-            for(int j = low; j < high; j += i * 2){
-                merge(array, temp, j, (j + i - 1), Math.min(j + 2 * i - 1, high));
+        int[] temp = new int[array.length];
+        for(int i = 1; i < array.length; i *= 2){
+            for(int j = 0; j < array.length - i; j += 2 * i){
+                merge(array, temp, j, (j + i - 1), Math.min(j + (2 * i) - 1, array.length - 2));
             }
         }
     }
 
+
     public static void recursiveMergeSort(int[] array){
-        recursiveMergeSort(array, array.clone(), 0, array.length - 1);
+        recursiveMergeSort(array, new int[array.length],0, array.length - 1);
     }
 
-    private static void recursiveMergeSort(int[] array, int[] temp, int low, int high){
-        if(low > high) return;
+    private static void recursiveMergeSort(int[] array, int[] temp,  int low, int high){
+        if(low >= high) return;
 
-        int mid = (low + high) / 2;
+        int mid = low + (high - low) / 2;
         recursiveMergeSort(array, temp, low, mid);
-        recursiveMergeSort(array, temp, mid + 1, high);
+        recursiveMergeSort(array, temp, (mid + 1), high);
+
+        if(!(array[mid + 1] < array[mid])) return;
+
         merge(array, temp, low, mid, high);
     }
 
@@ -50,21 +52,22 @@ public final class MergeSort {
         int j = mid + 1;
         int k = low;
 
-        while (i <= mid && j <= high){
-            if(temp[i] <= temp[j]){
-                array[k++] = temp[i++];
-            } else {
-                array[k++] = temp[j++];
-            }
+        while(i <= mid && j <= high){
+            temp[k++] = (array[i] <= array[j]) ? array[i++] : array[j++];
         }
 
         while(i <= mid){
-            array[k++] = temp[i++];
+            temp[k++] = array[i++];
         }
         while(j <= high){
-            array[k++] = temp[j++];
+            temp[k++] = array[j++];
+        }
+
+        if (high + 1 - low >= 0) {
+            System.arraycopy(temp, low, array, low, high + 1 - low);
         }
     }
+
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static <T extends Comparable> void sort(List<T> list){
@@ -89,14 +92,10 @@ public final class MergeSort {
     }
 
     public static void iterativeMergeSort(Object[] array){
-        iterativeMergeSort(array, array.clone(), 0, array.length - 1);
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    private static void iterativeMergeSort(Object[] array, Object[] temp, int low, int high){
-        for(int i = 1; i <= high - low; i *= 2){
-            for(int j = low; j < high; j += i * 2){
-                merge(array, temp, j, (j + i - 1), Math.min(j + 2 * i - 1, high));
+        Object[] temp = new Object[array.length];
+        for(int i = 1; i < array.length; i *= 2){
+            for(int j = 0; j < array.length - i; j += 2 * i){
+                merge(array, temp, j, (j + i - 1), Math.min(j + (2 * i) - 1, array.length - 2));
             }
         }
     }
@@ -105,12 +104,16 @@ public final class MergeSort {
         recursiveMergeSort(array, array.clone(), 0, array.length - 1);
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private static void recursiveMergeSort(Object[] array, Object[] temp, int low, int high){
         if(low > high) return;
 
         int mid = (low + high) / 2;
         recursiveMergeSort(array, temp, low, mid);
         recursiveMergeSort(array, temp, (mid + 1), high);
+
+        if(!(((Comparable) array[mid + 1]).compareTo(array[mid]) < 0)) return;
+
         merge(array, temp, low, mid, high);
     }
 
@@ -120,25 +123,20 @@ public final class MergeSort {
         int j = mid + 1;
         int k = low;
 
-        while (i <= mid && j <= high){
-            if(((Comparable) temp[i]).compareTo(temp[j]) <= 0){
-                array[k++] = temp[i++];
-            } else {
-                array[k++] = temp[j++];
-            }
+        while(i <= mid && j <= high){
+            temp[k++] = (((Comparable) array[i]).compareTo(array[j]) <= 0) ? array[i++] : array[j++];
         }
 
         while(i <= mid){
-            array[k++] = temp[i++];
+            temp[k++] = array[i++];
         }
         while(j <= high){
-            array[k++] = temp[j++];
+            temp[k++] = array[j++];
+        }
+
+        if (high + 1 - low >= 0) {
+            System.arraycopy(temp, low, array, low, high + 1 - low);
         }
     }
-
-
-
-
-
 
 }

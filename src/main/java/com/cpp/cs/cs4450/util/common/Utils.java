@@ -6,10 +6,14 @@ import com.cpp.cs.cs4450.models.grid.Vertex;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map.Entry;
+import java.util.Set;
 
 
-public final class CommonUtils {
+public final class Utils {
     private static final String DEFAULT_PAIR_DELIMITER = " ";
     private static final String NEGATIVE_NUMBER_PREFIX = "-";
     private static final String NUMBER_FORMAT_ERROR_MESSAGE = "An Number Format Error was thrown with message: [%s].\n" +
@@ -17,7 +21,55 @@ public final class CommonUtils {
             "Please type in the negative coordinates by hand since the '" + NEGATIVE_NUMBER_PREFIX + "' symbol is sometimes not recognized when pasted.";
 
 
-    private CommonUtils(){}
+    private Utils(){}
+
+    public static <T extends Comparable<T>> boolean isInOrder(final Collection<T> collection){
+        return (isInOrder(collection, Comparable::compareTo));
+    }
+
+    public static <T> boolean isInOrder(final Collection<T> collection, final Comparator<T> comparator){
+        if(collection.isEmpty() || collection.size() <= 1){
+            return true;
+        }
+
+        final Iterator<T> iterator = collection.iterator();
+        T current, previous = iterator.next();
+        while(iterator.hasNext()){
+            current = iterator.next();
+            if(comparator.compare(previous, current) > 0){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    public static boolean containsDuplicates(final Collection<?> collection){
+        return collection.size() == collection.stream().distinct().count();
+    }
+
+
+    public static <T> void removeDuplicates(final Collection<T> collection){
+        if(!containsDuplicates(collection)) return;
+
+        final Set<T> seen = new HashSet<>();
+
+        final Iterator<T> iterator = collection.iterator();
+        while(iterator.hasNext()){
+            final T current = iterator.next();
+            if(seen.contains(current)){
+                iterator.remove();
+            }
+            seen.add(current);
+        }
+    }
+
+
+
+
+
+
 
     public static Entry<Double, Double> parsePairToDouble(final String s){
         return parsePairToDouble(s, DEFAULT_PAIR_DELIMITER);

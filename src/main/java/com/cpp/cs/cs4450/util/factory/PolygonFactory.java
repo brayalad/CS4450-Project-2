@@ -4,7 +4,7 @@ import com.cpp.cs.cs4450.models.grid.Vertex;
 import com.cpp.cs.cs4450.models.shapes.Polygon;
 import com.cpp.cs.cs4450.util.collections.DirectedGraph;
 import com.cpp.cs.cs4450.util.collections.Graph;
-import com.cpp.cs.cs4450.util.common.CommonUtils;
+import com.cpp.cs.cs4450.util.common.Utils;
 import com.cpp.cs.cs4450.util.io.PolygonCoordinateFileParser.ParsedFilePolygon;
 
 import java.awt.Color;
@@ -50,7 +50,7 @@ public final class PolygonFactory {
                     return new Polygon(
                             new Color(rgb[0], rgb[1], rgb[2]),
                             pfp.getVertices().stream()
-                                    .map(CommonUtils::parsePairToDouble)
+                                    .map(Utils::parsePairToDouble)
                                     .map(Vertex::new)
                                     .collect(Collectors.toList()),
                             TransformationFactory.createTransformations(pfp.getTransformations())

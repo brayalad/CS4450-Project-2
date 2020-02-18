@@ -31,18 +31,18 @@ public final class QuickSort {
 
       int index = partition(array, low, high);
 
-      if(low < index){
-          recursiveQuickSort(array, low, index);
+      if(low < index - 1){
+          recursiveQuickSort(array, low, (index - 1));
       }
-      if((index + 1) < high){
-          recursiveQuickSort(array, (index + 1), high);
+      if(index  < high){
+          recursiveQuickSort(array, index, high);
       }
     }
 
     public static void iterativeQuickSort(int[] array){
         Deque<Integer> stack = new ArrayDeque<>();
         stack.addFirst(0);
-        stack.addFirst(array.length);
+        stack.addFirst(array.length - 1);
 
         while(!stack.isEmpty()){
             int high = stack.removeFirst();
@@ -53,16 +53,16 @@ public final class QuickSort {
 
             int index = partition(array, low, high);
 
-            stack.addFirst(index + 1);
+            stack.addFirst(index);
             stack.addFirst(high);
 
             stack.addFirst(low);
-            stack.addFirst(index);
+            stack.addFirst(index - 1);
         }
     }
 
     private static int partition(int[] array, int low, int high){
-        int pivot = array[(low + ((high - low) / 2))];
+        int pivot = array[(low + high) / 2];
         while(low <= high){
             while(array[low] < pivot){
                 ++low;
@@ -71,7 +71,9 @@ public final class QuickSort {
                 --high;
             }
             if(low <= high){
-                Sort.swap(array, low++, high--);
+                Sort.swap(array, low, high);
+                ++low;
+                --high;
             }
         }
 
@@ -98,8 +100,7 @@ public final class QuickSort {
             return;
 
         try{
-            //recursiveQuickSort(array);
-            iterativeQuickSort(array);
+            recursiveQuickSort(array);
         } catch (StackOverflowError e){
             iterativeQuickSort(array);
         }
@@ -145,7 +146,7 @@ public final class QuickSort {
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
-    private static int partition(Object[] array, int low, int high){
+    private static <T> int partition(T[] array, int low, int high){
         Object pivot = array[(low + ((high - low) / 2))];
         while(low <= high){
             while (((Comparable) array[low]).compareTo(pivot) < 0){

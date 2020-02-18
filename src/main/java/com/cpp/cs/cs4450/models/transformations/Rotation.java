@@ -2,8 +2,6 @@ package com.cpp.cs.cs4450.models.transformations;
 
 import com.cpp.cs.cs4450.graphics.Transformable;
 import com.cpp.cs.cs4450.models.grid.Vertex;
-import com.cpp.cs.cs4450.util.common.CommonUtils;
-import com.cpp.cs.cs4450.util.math.MathUtils;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
