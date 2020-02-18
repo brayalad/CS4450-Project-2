@@ -19,4 +19,5 @@ public abstract class AbstractTransformation implements Transformation {
 
     protected abstract void transform(final Vertex vertex);
 
+
 }

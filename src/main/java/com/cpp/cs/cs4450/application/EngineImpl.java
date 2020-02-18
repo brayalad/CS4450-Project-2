@@ -2,6 +2,7 @@ package com.cpp.cs.cs4450.application;
 
 import com.cpp.cs.cs4450.graphics.GraphicsEngine;
 import com.cpp.cs.cs4450.models.shapes.DisplayShape;
+import com.cpp.cs.cs4450.models.shapes.Polygon;
 import com.cpp.cs.cs4450.ui.UserInterface;
 import com.cpp.cs.cs4450.util.factory.PolygonFactory;
 
@@ -86,6 +87,7 @@ public final class EngineImpl implements Engine {
         graphicsEngine.shutdown();
         System.exit(0);
     }
+
 
     private void changeColor(){
         final int timesToShuffle = RANDOM.nextInt(10);

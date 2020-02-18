@@ -9,6 +9,7 @@ import com.cpp.cs.cs4450.util.common.Utils;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -165,6 +166,17 @@ public final class PolygonFiller {
         @Override
         public int hashCode(){
             return Objects.hash(yMin, xVal, yMax, inverseSlope);
+        }
+
+    }
+
+    private static final class EdgeComparator implements Comparator<Edge> {
+
+        private EdgeComparator(){}
+
+        @Override
+        public int compare(final Edge e1, Edge e2) {
+            return e1.compareTo(e2);
         }
 
     }

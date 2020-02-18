@@ -83,8 +83,7 @@ public class Polygon extends DisplayShape implements Transformable, Renderable, 
 
     @Override
     public String toString(){
-        return "\nPolygon:" +
-                "\n\tVertices:\t" + vertices.toString() + "\n";
+        return vertices.toString();
     }
 
     @Override

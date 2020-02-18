@@ -44,9 +44,11 @@ public final class Utils {
         return true;
     }
 
+
     public static boolean containsDuplicates(final Collection<?> collection){
         return collection.size() == collection.stream().distinct().count();
     }
+
 
     public static <T> void removeDuplicates(final Collection<T> collection){
         if(!containsDuplicates(collection)) return;
@@ -62,6 +64,12 @@ public final class Utils {
             seen.add(current);
         }
     }
+
+
+
+
+
+
 
     public static Entry<Double, Double> parsePairToDouble(final String s){
         return parsePairToDouble(s, DEFAULT_PAIR_DELIMITER);

@@ -59,11 +59,6 @@ public class Scaling extends AbstractTransformation implements Transformation{
     }
 
     @Override
-    public int hashCode(){
-        return Objects.hash(sx, sy, pivot.getKey(), pivot.getValue());
-    }
-
-    @Override
     public String toString(){
         return "Scaling:\n" +
                 "\tX:\t" + sx + "\n" +

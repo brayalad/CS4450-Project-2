@@ -64,11 +64,6 @@ public class Rotation extends AbstractTransformation implements Transformation {
     }
 
     @Override
-    public int hashCode(){
-        return Objects.hash(theta, pivot.getKey(), pivot.getValue());
-    }
-
-    @Override
     public String toString(){
         return "Scaling:\n" +
                 "\tAngle:\t" + theta + "\n" +

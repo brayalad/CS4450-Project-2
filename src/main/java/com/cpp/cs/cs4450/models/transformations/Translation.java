@@ -1,6 +1,7 @@
 package com.cpp.cs.cs4450.models.transformations;
 
 import com.cpp.cs.cs4450.models.grid.Vertex;
+import com.cpp.cs.cs4450.util.math.MathUtils;
 
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -40,11 +41,6 @@ public class Translation extends AbstractTransformation implements Transformatio
 
         return Objects.equals(this.dx, other.dx) &&
                 Objects.equals(this.dy, other.dy);
-    }
-
-    @Override
-    public int hashCode(){
-        return Objects.hash(dx, dy);
     }
 
     @Override
