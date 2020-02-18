@@ -11,6 +11,4 @@ public interface Transformation {
 
     void transform(List<Vertex> vertices);
 
-    double[][] getTransformationMatrix();
-
 }

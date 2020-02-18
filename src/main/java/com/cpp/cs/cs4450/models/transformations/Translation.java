@@ -1,7 +1,6 @@
 package com.cpp.cs.cs4450.models.transformations;
 
 import com.cpp.cs.cs4450.models.grid.Vertex;
-import com.cpp.cs.cs4450.util.math.MathUtils;
 
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -9,16 +8,10 @@ import java.util.Objects;
 public class Translation extends AbstractTransformation implements Transformation {
     private final double dx;
     private final double dy;
-    private final double[][] transformationMatrix;
 
     public Translation(final double dx, final double dy) {
         this.dx = dx;
         this.dy = dy;
-        this.transformationMatrix = new double[][]{
-                { 1.0, 0.0, dx },
-                { 0.0, 1.0, dy },
-                { 0.0, 0.0, 1.0 }
-        };
     }
 
 
@@ -50,14 +43,15 @@ public class Translation extends AbstractTransformation implements Transformatio
     }
 
     @Override
+    public int hashCode(){
+        return Objects.hash(dx, dy);
+    }
+
+    @Override
     public String toString(){
         return "Scaling:\n" +
                 "\tX:\t" + dx + "\n" +
                 "\tY:\t" + dy + "\n";
     }
 
-    @Override
-    public double[][] getTransformationMatrix() {
-        return transformationMatrix;
-    }
 }

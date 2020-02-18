@@ -2,8 +2,6 @@ package com.cpp.cs.cs4450.util.factory;
 
 import com.cpp.cs.cs4450.models.grid.Vertex;
 import com.cpp.cs.cs4450.models.shapes.Polygon;
-import com.cpp.cs.cs4450.util.collections.DirectedGraph;
-import com.cpp.cs.cs4450.util.collections.Graph;
 import com.cpp.cs.cs4450.util.common.Utils;
 import com.cpp.cs.cs4450.util.io.PolygonCoordinateFileParser.ParsedFilePolygon;
 
@@ -70,10 +68,6 @@ public final class PolygonFactory {
         }
 
         return map;
-    }
-
-    public static Graph<Vertex> vertexListToGraph(final List<Vertex> vertices){
-        return new DirectedGraph<>(vertexListToMap(vertices));
     }
 
 }

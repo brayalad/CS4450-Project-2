@@ -12,7 +12,6 @@ public class Rotation extends AbstractTransformation implements Transformation {
     private final Entry<Double, Double> pivot;
     private final Translation translation;
     private final Translation recenter;
-    private final double[][] transformationMatrix;
 
     public Rotation(final double angle, final double px, final double py){
         this(angle, new SimpleEntry<>(px,py));
@@ -23,10 +22,6 @@ public class Rotation extends AbstractTransformation implements Transformation {
         this.pivot = pivot;
         this.translation = new Translation(pivot.getKey(), pivot.getValue());
         this.recenter = new Translation(-pivot.getKey(), - pivot.getValue());
-        this.transformationMatrix = new double[][] {
-                { Math.cos(this.theta), -Math.sin(this.theta) },
-                { Math.sin(this.theta), Math.cos(this.theta) }
-        };
     }
 
     public double getTheta() {
@@ -43,11 +38,6 @@ public class Rotation extends AbstractTransformation implements Transformation {
         translation.transform(transformable);
         transform(transformable.getVertices());
         recenter.transform(transformable);
-    }
-
-    @Override
-    public double[][] getTransformationMatrix() {
-        return transformationMatrix;
     }
 
     @Override
@@ -74,18 +64,15 @@ public class Rotation extends AbstractTransformation implements Transformation {
     }
 
     @Override
+    public int hashCode(){
+        return Objects.hash(theta, pivot.getKey(), pivot.getValue());
+    }
+
+    @Override
     public String toString(){
         return "Scaling:\n" +
                 "\tAngle:\t" + theta + "\n" +
                 "\tPivot:\t[" + pivot.getKey() + ", " + pivot.getValue() + "]\n";
-    }
-
-    private double calculateRotatedX(final Vertex vertex){
-        return (pivot.getKey() + (vertex.getX() - pivot.getKey()) * Math.cos(theta) - (vertex.getY() - pivot.getValue()) * Math.sin(theta));
-    }
-
-    private double calculateRotatedY(final Vertex vertex){
-        return (pivot.getValue() + (vertex.getX() - pivot.getKey()) * Math.sin(theta) + (vertex.getY() - pivot.getValue()) * Math.cos(theta));
     }
 
 }

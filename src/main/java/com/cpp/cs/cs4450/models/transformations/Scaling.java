@@ -13,7 +13,6 @@ public class Scaling extends AbstractTransformation implements Transformation{
     private final Entry<Double, Double> pivot;
     private final Translation translation;
     private final Translation recenter;
-    private final double[][] transformationMatrix;
 
 
     public Scaling(final double sx, final double sy, final double px, final double py){
@@ -26,10 +25,6 @@ public class Scaling extends AbstractTransformation implements Transformation{
         this.pivot = pivot;
         this.translation = new Translation(pivot.getKey(), pivot.getValue());
         this.recenter = new Translation(-pivot.getKey(), - pivot.getValue());
-        this.transformationMatrix = new double[][]{
-                { sx, 0.0 },
-                { 0.0, sy }
-        };
     }
 
     @Override
@@ -64,6 +59,11 @@ public class Scaling extends AbstractTransformation implements Transformation{
     }
 
     @Override
+    public int hashCode(){
+        return Objects.hash(sx, sy, pivot.getKey(), pivot.getValue());
+    }
+
+    @Override
     public String toString(){
         return "Scaling:\n" +
                 "\tX:\t" + sx + "\n" +
@@ -71,8 +71,4 @@ public class Scaling extends AbstractTransformation implements Transformation{
                 "\tPivot:\t[" + pivot.getKey() + ", " + pivot.getValue() + "]\n";
     }
 
-    @Override
-    public double[][] getTransformationMatrix() {
-        return transformationMatrix;
-    }
 }

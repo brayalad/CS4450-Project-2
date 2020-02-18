@@ -3,14 +3,12 @@ package com.cpp.cs.cs4450.util.filler;
 import com.cpp.cs.cs4450.graphics.Fillable;
 import com.cpp.cs.cs4450.models.grid.Vertex;
 import com.cpp.cs.cs4450.models.shapes.Line;
-import com.cpp.cs.cs4450.util.collections.Graph;
 import com.cpp.cs.cs4450.util.common.Utils;
 
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -26,10 +24,6 @@ public final class PolygonFiller {
 
     public static void fill(final Fillable fillable){
         fill(fillable.getVertices(), fillable.getColor());
-    }
-
-    public static void fill(final Graph<Vertex> graph, final Color color){
-        fill(graph.toMap(), color);
     }
 
     public static void fill(final Map<Vertex, List<Vertex>> vertices, final Color color){
@@ -171,17 +165,6 @@ public final class PolygonFiller {
         @Override
         public int hashCode(){
             return Objects.hash(yMin, xVal, yMax, inverseSlope);
-        }
-
-    }
-
-    private static final class EdgeComparator implements Comparator<Edge> {
-
-        private EdgeComparator(){}
-
-        @Override
-        public int compare(final Edge e1, Edge e2) {
-            return e1.compareTo(e2);
         }
 
     }

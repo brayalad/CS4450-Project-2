@@ -5,15 +5,12 @@ import com.cpp.cs.cs4450.graphics.Renderable;
 import com.cpp.cs.cs4450.graphics.Transformable;
 import com.cpp.cs.cs4450.models.grid.Vertex;
 import com.cpp.cs.cs4450.models.transformations.Transformation;
-import com.cpp.cs.cs4450.util.collections.Graph;
-import com.cpp.cs.cs4450.util.factory.PolygonFactory;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -86,7 +83,8 @@ public class Polygon extends DisplayShape implements Transformable, Renderable, 
 
     @Override
     public String toString(){
-        return vertices.toString();
+        return "\nPolygon:" +
+                "\n\tVertices:\t" + vertices.toString() + "\n";
     }
 
     @Override

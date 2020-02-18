@@ -206,4 +206,9 @@ public class Line extends DisplayShape implements Renderable {
                 && Objects.equals(color, other.color);
     }
 
+    @Override
+    public int hashCode(){
+        return Objects.hash(start, end, color);
+    }
+
 }
