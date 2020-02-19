@@ -1,3 +1,15 @@
+/***************************************************************
+ * file: GraphicsEngine.java
+ * author: Bryan Ayala
+ * class: CS 4450 - Computer Graphics
+ *
+ * assignment: Program 2
+ * date last modified: 02/19/2020
+ *
+ * purpose: GraphicsEngine is responsible for rendering objects
+ *
+ ****************************************************************/
+
 package com.cpp.cs.cs4450.graphics;
 
 import com.cpp.cs.cs4450.models.shapes.DisplayShape;
@@ -43,6 +55,11 @@ public interface GraphicsEngine {
      */
     boolean removeRenderable(Renderable renderable);
 
+    /**
+     * Getter for renders
+     *
+     * @return list of renders
+     */
     List<Renderable> getRenders();
 
     /**

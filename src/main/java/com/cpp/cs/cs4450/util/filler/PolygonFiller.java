@@ -1,3 +1,15 @@
+/***************************************************************
+ * file: PolygonFiller.java
+ * author: Bryan Ayala
+ * class: CS 4450 - Computer Graphics
+ *
+ * assignment: Program 2
+ * date last modified: 02/19/2020
+ *
+ * purpose: Utility class that uses Scan-line fill algorithm to fill polygons
+ *
+ ****************************************************************/
+
 package com.cpp.cs.cs4450.util.filler;
 
 import com.cpp.cs.cs4450.graphics.Fillable;
@@ -9,7 +21,6 @@ import com.cpp.cs.cs4450.util.common.Utils;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -19,14 +30,31 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+/**
+ * Utility class that uses Scan-line fill algorithm to fill polygons
+ */
 public final class PolygonFiller {
 
+    /**
+     * private Constrictor
+     */
     private PolygonFiller(){}
 
+    /**
+     * Fills the object
+     *
+     * @param fillable fillable object
+     */
     public static void fill(final Fillable fillable){
         fill(fillable.getVertices(), fillable.getColor());
     }
 
+    /**
+     * Fills the fillable
+     *
+     * @param vertices map of vertices
+     * @param color color of object
+     */
     public static void fill(final Map<Vertex, List<Vertex>> vertices, final Color color){
         final Set<Edge> edges = new HashSet<>();
         for(final Vertex source : vertices.keySet()){
@@ -38,6 +66,12 @@ public final class PolygonFiller {
         fill(edges, color);
     }
 
+    /**
+     * Fills the fillable
+     *
+     * @param vertices list of vertices
+     * @param color color of object
+     */
     public static void fill(final List<Vertex> vertices, final Color color){
         final Set<Edge> edges = new HashSet<>();
 
@@ -55,6 +89,12 @@ public final class PolygonFiller {
         fill(edges, color);
     }
 
+    /**
+     * Fills the fillable
+     *
+     * @param edges set of edges
+     * @param color color of object
+     */
     private static void fill(final Set<Edge> edges, final Color color){
         final SortedSet<Edge> globalEdgeTable = new TreeSet<>();
         for(final Edge edge : edges){
@@ -99,12 +139,37 @@ public final class PolygonFiller {
         } while(!activeEdgeTable.isEmpty());
     }
 
+    /**
+     * Class the represents edge between to vertices
+     */
     private static final class Edge implements Comparable<Edge> {
+
+        /**
+         * min y value
+         */
         private final double yMin;
+
+        /**
+         * max y value
+         */
         private final double yMax;
+
+        /**
+         * Inverse of the slope
+         */
         private final double inverseSlope;
+
+        /**
+         * x value of min y
+         */
         private double xVal;
 
+        /**
+         * Constructor
+         *
+         * @param v1 start vertex
+         * @param v2 end vertex
+         */
         private Edge(final Vertex v1, final Vertex v2){
             this(
                     Utils.minVertex(v1, v2).getY(),
@@ -114,6 +179,14 @@ public final class PolygonFiller {
             );
         }
 
+        /**
+         * Constructor
+         *
+         * @param yMin min y value
+         * @param yMax max y value
+         * @param inverseSlope inverse of slope
+         * @param xVal x val of y min
+         */
         private Edge(final double yMin, final double yMax, final double inverseSlope, final double xVal) {
             this.yMin = yMin;
             this.yMax = yMax;
@@ -121,6 +194,13 @@ public final class PolygonFiller {
             this.xVal = xVal;
         }
 
+        /**
+         * Compares object to edge
+         *
+         * @param other other edge
+         *
+         * @return if equal or not
+         */
         @Override
         public int compareTo(final Edge other) {
             if(this.yMin < other.yMin){
@@ -138,6 +218,13 @@ public final class PolygonFiller {
             }
         }
 
+        /**
+         * Checks if equal to object
+         *
+         * @param obj object to check
+         *
+         * @return true if equal, false otherwise
+         */
         @Override
         public boolean equals(final Object obj){
             if(obj == null) return false;
@@ -154,6 +241,11 @@ public final class PolygonFiller {
                     Objects.equals(this.inverseSlope, other.inverseSlope);
         }
 
+        /**
+         * String representation
+         *
+         * @return String representation
+         */
         @Override
         public String toString(){
             return "\nEdge:" +
@@ -163,20 +255,14 @@ public final class PolygonFiller {
                     "\n\tI-Slope:\t" + inverseSlope;
         }
 
+        /**
+         * Hash Code
+         *
+         * @return hash code
+         */
         @Override
         public int hashCode(){
             return Objects.hash(yMin, xVal, yMax, inverseSlope);
-        }
-
-    }
-
-    private static final class EdgeComparator implements Comparator<Edge> {
-
-        private EdgeComparator(){}
-
-        @Override
-        public int compare(final Edge e1, Edge e2) {
-            return e1.compareTo(e2);
         }
 
     }

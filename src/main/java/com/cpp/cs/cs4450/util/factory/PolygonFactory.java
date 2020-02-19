@@ -1,3 +1,15 @@
+/***************************************************************
+ * file: PolygonFactory.java
+ * author: Bryan Ayala
+ * class: CS 4450 - Computer Graphics
+ *
+ * assignment: Program 2
+ * date last modified: 02/19/2020
+ *
+ * purpose: Factory utility class to create polygons
+ *
+ ****************************************************************/
+
 package com.cpp.cs.cs4450.util.factory;
 
 import com.cpp.cs.cs4450.models.grid.Vertex;
@@ -16,7 +28,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Factory utility class to create polygons
+ */
 public final class PolygonFactory {
+
+    /**
+     * Pair string delimiter
+     */
     private static final String PAIR_DELIMITER = " ";
 
     /**
@@ -38,8 +57,18 @@ public final class PolygonFactory {
             ).collect(Collectors.toSet())
     );
 
+    /**
+     * private constructor
+     */
     private PolygonFactory(){}
 
+    /**
+     * Creates polygons
+     *
+     * @param filePolygons parsed polygons from file
+     *
+     * @return polygons
+     */
     public static List<Polygon> createPolygons(final Collection<ParsedFilePolygon> filePolygons){
         return filePolygons.stream()
                 .map((pfp) -> {
@@ -57,6 +86,13 @@ public final class PolygonFactory {
                 }).collect(Collectors.toList());
     }
 
+    /**
+     * Transforms list of vertices to map
+     *
+     * @param vertices vertices list
+     *
+     * @return vertices map
+     */
     public static Map<Vertex, List<Vertex>> vertexListToMap(final List<Vertex> vertices){
         final Map<Vertex, List<Vertex>> map = new LinkedHashMap<>();
 

@@ -1,3 +1,15 @@
+/***************************************************************
+ * file: Configuration.java
+ * author: Bryan Ayala
+ * class: CS 4450 - Computer Graphics
+ *
+ * assignment: Program 2
+ * date last modified: 02/19/2020
+ *
+ * purpose: configuration for the program
+ *
+ ****************************************************************/
+
 package com.cpp.cs.cs4450.config;
 
 import com.cpp.cs.cs4450.util.os.OperatingSystem;

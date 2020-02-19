@@ -1,3 +1,15 @@
+/***************************************************************
+ * file: LWJGLGraphicsEngine.java
+ * author: Bryan Ayala
+ * class: CS 4450 - Computer Graphics
+ *
+ * assignment: Program 2
+ * date last modified: 02/19/2020
+ *
+ * purpose: GraphicsEngine using LWJGL
+ *
+ ****************************************************************/
+
 package com.cpp.cs.cs4450.graphics;
 
 import com.cpp.cs.cs4450.models.shapes.DisplayShape;
@@ -37,6 +49,9 @@ public final class LWJGLGraphicsEngine extends AbstractGraphicsEngine implements
      */
     private final DisplayMode displayMode;
 
+    /**
+     * Original Display Shape colors
+     */
     private final Map<DisplayShape, Color> originalDisplayColors = new HashMap<>();
 
     /**
@@ -123,6 +138,9 @@ public final class LWJGLGraphicsEngine extends AbstractGraphicsEngine implements
         }
     }
 
+    /**
+     * Transforms the Transformable renders
+     */
     private void transform(){
         for(final Renderable renderable : renders) {
             if (renderable instanceof Transformable) {

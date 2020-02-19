@@ -1,8 +1,19 @@
+/***************************************************************
+ * file: EngineImpl.java
+ * author: Bryan Ayala
+ * class: CS 4450 - Computer Graphics
+ *
+ * assignment: Program 2
+ * date last modified: 02/19/2020
+ *
+ * purpose: implementation of Engine interface
+ *
+ ****************************************************************/
+
 package com.cpp.cs.cs4450.application;
 
 import com.cpp.cs.cs4450.graphics.GraphicsEngine;
 import com.cpp.cs.cs4450.models.shapes.DisplayShape;
-import com.cpp.cs.cs4450.models.shapes.Polygon;
 import com.cpp.cs.cs4450.ui.UserInterface;
 import com.cpp.cs.cs4450.util.factory.PolygonFactory;
 
@@ -88,7 +99,9 @@ public final class EngineImpl implements Engine {
         System.exit(0);
     }
 
-
+    /**
+     * Changes color of the shapes
+     */
     private void changeColor(){
         final int timesToShuffle = RANDOM.nextInt(10);
 

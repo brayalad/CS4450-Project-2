@@ -1,3 +1,15 @@
+/***************************************************************
+ * file: Engine.java
+ * author: Bryan Ayala
+ * class: CS 4450 - Computer Graphics
+ *
+ * assignment: Program 2
+ * date last modified: 02/19/2020
+ *
+ * purpose: interface responsible for running all the logic for a program.
+ *
+ ****************************************************************/
+
 package com.cpp.cs.cs4450.application;
 
 /**

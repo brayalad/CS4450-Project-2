@@ -1,3 +1,15 @@
+/***************************************************************
+ * file: AbstractGraphicsEngine.java
+ * author: Bryan Ayala
+ * class: CS 4450 - Computer Graphics
+ *
+ * assignment: Program 2
+ * date last modified: 02/19/2020
+ *
+ * purpose: skeleton implementation for a GraphicsEngine implementation
+ *
+ ****************************************************************/
+
 package com.cpp.cs.cs4450.graphics;
 
 import org.lwjgl.opengl.Display;
@@ -84,6 +96,11 @@ public abstract class AbstractGraphicsEngine implements GraphicsEngine {
         return renders.size();
     }
 
+    /**
+     * Getter for renders list
+     *
+     * @return renders list
+     */
     public List<Renderable> getRenders(){ return renders; }
 
 }

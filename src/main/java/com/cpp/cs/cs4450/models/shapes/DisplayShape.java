@@ -1,3 +1,15 @@
+/***************************************************************
+ * file: DisplayShape.java
+ * author: Bryan Ayala
+ * class: CS 4450 - Computer Graphics
+ *
+ * assignment: Program 2
+ * date last modified: 02/19/2020
+ *
+ * purpose: Model abstract class for a displayable shape
+ *
+ ****************************************************************/
+
 package com.cpp.cs.cs4450.models.shapes;
 
 import com.cpp.cs.cs4450.graphics.Renderable;

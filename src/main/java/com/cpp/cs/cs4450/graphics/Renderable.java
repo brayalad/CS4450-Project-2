@@ -1,3 +1,15 @@
+/***************************************************************
+ * file: Renderable.java
+ * author: Bryan Ayala
+ * class: CS 4450 - Computer Graphics
+ *
+ * assignment: Program 2
+ * date last modified: 02/19/2020
+ *
+ * purpose: Interface for objects to implement to be rendered to display
+ *
+ ****************************************************************/
+
 package com.cpp.cs.cs4450.graphics;
 
 /**

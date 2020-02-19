@@ -1,3 +1,15 @@
+/***************************************************************
+ * file: ComputerGraphicsApplication.java
+ * author: Bryan Ayala
+ * class: CS 4450 - Computer Graphics
+ *
+ * assignment: Program 2
+ * date last modified: 02/19/2020
+ *
+ * purpose: Abstract class to launch program 1
+ *
+ ****************************************************************/
+
 package com.cpp.cs.cs4450.application;
 
 import com.cpp.cs.cs4450.config.Configuration;
@@ -16,7 +28,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map.Entry;
 
 /**
  * The ComputerGraphicsApplication class is an abstract class that is to be extended by any class

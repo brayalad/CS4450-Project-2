@@ -1,3 +1,15 @@
+/***************************************************************
+ * file: OperatingSystem.java
+ * author: Bryan Ayala
+ * class: CS 4450 - Computer Graphics
+ *
+ * assignment: Program 2
+ * date last modified: 02/19/2020
+ *
+ * purpose: Finds the type of Operating System program is running on.
+ *
+ ****************************************************************/
+
 package com.cpp.cs.cs4450.util.os;
 
 import java.util.Collections;
