@@ -25,6 +25,7 @@ public final class PolygonFactory {
     public static final Set<Color> SUPPORTED_COLORS = Collections.unmodifiableSet(
             Stream.of(
                     Color.BLUE,
+                    Color.GREEN,
                     Color.CYAN,
                     Color.GRAY,
                     Color.LIGHT_GRAY,
