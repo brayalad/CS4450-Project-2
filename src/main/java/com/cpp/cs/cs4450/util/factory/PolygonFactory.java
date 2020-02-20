@@ -72,9 +72,10 @@ public final class PolygonFactory {
     public static List<Polygon> createPolygons(final Collection<ParsedFilePolygon> filePolygons){
         return filePolygons.stream()
                 .map((pfp) -> {
-                    final Float[] rgb = Arrays.stream(pfp.getColor().split(PAIR_DELIMITER))
+                    final Integer[] rgb = Arrays.stream(pfp.getColor().split(PAIR_DELIMITER))
                                         .map(Float::parseFloat)
-                                        .toArray(Float[]::new);
+                                        .map(Math::round)
+                                        .toArray(Integer[]::new);
                     return new Polygon(
                             new Color(rgb[0], rgb[1], rgb[2]),
                             pfp.getVertices().stream()
