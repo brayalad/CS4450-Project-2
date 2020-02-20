@@ -141,7 +141,10 @@ public class Polygon extends DisplayShape implements Transformable, Renderable, 
      */
     @Override
     public String toString(){
-        return vertices.toString();
+        return "\nPolygon:" +
+                "\n\tVertices:\t" + vertices.toString() +
+                "\n\tTransformations:\t" + transformations.toString();
+
     }
 
     /**
