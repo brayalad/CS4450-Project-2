@@ -23,8 +23,14 @@ import java.util.Objects;
  * Rotates a Transformable object
  */
 public class Rotation extends AbstractTransformation implements Transformation {
+
     /**
      * Angle to rotate by
+     */
+    private final double angle;
+
+    /**
+     * Theta angle to rotate by
      */
     private final double theta;
 
@@ -57,11 +63,12 @@ public class Rotation extends AbstractTransformation implements Transformation {
     /**
      * Constructor
      *
-     * @param theta rotation angle
+     * @param angle rotation angle
      * @param pivot pivot point
      */
-    public Rotation(final double theta, final Entry<Double, Double> pivot) {
-        this.theta = Math.toRadians(theta);
+    public Rotation(final double angle, final Entry<Double, Double> pivot) {
+        this.angle = angle;
+        this.theta = Math.toRadians(angle);
         this.pivot = pivot;
         this.translation = new Translation(pivot.getKey(), pivot.getValue());
         this.recenter = new Translation(-pivot.getKey(), - pivot.getValue());
@@ -71,6 +78,13 @@ public class Rotation extends AbstractTransformation implements Transformation {
      * Getter for rotation angle
      *
      * @return rotation angle
+     */
+    public double getAngle(){ return angle; }
+
+    /**
+     * Getter for theta rotation angle
+     *
+     * @return theta rotation angle
      */
     public double getTheta() {
         return theta;
@@ -140,7 +154,7 @@ public class Rotation extends AbstractTransformation implements Transformation {
     @Override
     public String toString(){
         return "Rotation:\n" +
-                "\tAngle:\t" + theta + "\n" +
+                "\tAngle:\t" + angle + "\n" +
                 "\tPivot:\t[" + pivot.getKey() + ", " + pivot.getValue() + "]\n";
     }
 
