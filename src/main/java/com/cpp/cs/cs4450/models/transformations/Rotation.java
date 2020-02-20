@@ -153,9 +153,9 @@ public class Rotation extends AbstractTransformation implements Transformation {
      */
     @Override
     public String toString(){
-        return "Rotation:\n" +
+        return "\nRotation:\n" +
                 "\tAngle:\t" + angle + "\n" +
-                "\tPivot:\t[" + pivot.getKey() + ", " + pivot.getValue() + "]\n";
+                "\tPivot:\t[" + pivot.getKey() + ", " + pivot.getValue() + "]";
     }
 
 }

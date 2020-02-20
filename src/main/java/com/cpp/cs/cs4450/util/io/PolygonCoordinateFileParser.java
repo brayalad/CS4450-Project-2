@@ -17,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -94,7 +95,7 @@ public final class PolygonCoordinateFileParser {
                                         final String value = String.join(STRING_JOIN_DELIMITER, transformation);
 
                                         return new SimpleEntry<>(key, value);
-                                    }).collect(Collectors.toSet())
+                                    }).collect(Collectors.toCollection(LinkedHashSet::new))
                             ).build();
                 }).collect(Collectors.toList());
     }
@@ -213,7 +214,7 @@ public final class PolygonCoordinateFileParser {
              *
              * @return this builder
              */
-            private Builder withColor(String color){
+            private Builder withColor(final String color){
                 setColor(color);
                 return this;
             }
@@ -223,7 +224,7 @@ public final class PolygonCoordinateFileParser {
              *
              * @param color color value
              */
-            private void setColor(String color) {
+            private void setColor(final String color) {
                 this.color = color;
             }
 
@@ -234,7 +235,7 @@ public final class PolygonCoordinateFileParser {
              *
              * @return this builder
              */
-            private Builder withVertices(List<String> vertices){
+            private Builder withVertices(final List<String> vertices){
                 setVertices(vertices);
                 return this;
             }
@@ -244,7 +245,7 @@ public final class PolygonCoordinateFileParser {
              *
              * @param vertices vertices value
              */
-            private void setVertices(List<String> vertices) {
+            private void setVertices(final List<String> vertices) {
                 this.vertices = vertices;
             }
 
@@ -255,7 +256,7 @@ public final class PolygonCoordinateFileParser {
              *
              * @return this builder
              */
-            private Builder withTransformations(Set<Entry<String, String>> transformations){
+            private Builder withTransformations(final Set<Entry<String, String>> transformations){
                 setTransformations(transformations);
                 return this;
             }
@@ -265,7 +266,7 @@ public final class PolygonCoordinateFileParser {
              *
              * @param transformations transformations value
              */
-            private void setTransformations(Set<Entry<String, String>> transformations) {
+            private void setTransformations(final Set<Entry<String, String>> transformations) {
                 this.transformations = transformations;
             }
 

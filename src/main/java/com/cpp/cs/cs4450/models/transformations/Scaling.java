@@ -131,10 +131,10 @@ public class Scaling extends AbstractTransformation implements Transformation{
      */
     @Override
     public String toString(){
-        return "Scaling:\n" +
+        return "\nScaling:\n" +
                 "\tX:\t" + sx + "\n" +
                 "\tY:\t" + sy + "\n" +
-                "\tPivot:\t[" + pivot.getKey() + ", " + pivot.getValue() + "]\n";
+                "\tPivot:\t[" + pivot.getKey() + ", " + pivot.getValue() + "]";
     }
 
 }

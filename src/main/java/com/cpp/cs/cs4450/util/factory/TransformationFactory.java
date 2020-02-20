@@ -22,6 +22,8 @@ import java.util.AbstractMap.SimpleImmutableEntry;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -60,8 +62,30 @@ public final class TransformationFactory {
      *
      * @return transformations
      */
-    public static Set<Transformation> createTransformations(final Collection<Entry<String, String>> transformations){
-        return transformations.stream().map(t -> createTransformation(t.getKey(), t.getValue())).collect(Collectors.toSet());
+    public static Collection<Transformation> createTransformations(final Collection<Entry<String, String>> transformations){
+        return createTransformationsList(transformations);
+    }
+
+    /**
+     * Creates transformations
+     *
+     * @param transformations transformations to create
+     *
+     * @return transformations set
+     */
+    public static List<Transformation> createTransformationsList(final Collection<Entry<String, String>> transformations){
+        return transformations.stream().map(t -> createTransformation(t.getKey(), t.getValue())).collect(Collectors.toList());
+    }
+
+    /**
+     * Creates transformations
+     *
+     * @param transformations transformations to create
+     *
+     * @return transformations set
+     */
+    public static Set<Transformation> createTransformationsSet(final Collection<Entry<String, String>> transformations){
+        return transformations.stream().map(t -> createTransformation(t.getKey(), t.getValue())).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     /**

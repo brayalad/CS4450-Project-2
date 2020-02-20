@@ -24,7 +24,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Represents a list of vertices as a polygon.
@@ -38,7 +37,7 @@ public class Polygon extends DisplayShape implements Transformable, Renderable, 
     /**
      * Transformations to make
      */
-    private final Set<Transformation> transformations;
+    private final Collection<Transformation> transformations;
 
 
     /**
@@ -48,7 +47,7 @@ public class Polygon extends DisplayShape implements Transformable, Renderable, 
      * @param vertices vertices of polygon
      * @param transformations transformations for polygon
      */
-    public Polygon(final Color color, final List<Vertex> vertices, final Set<Transformation> transformations) {
+    public Polygon(final Color color, final List<Vertex> vertices, final Collection<Transformation> transformations) {
         super(color);
         this.vertices = vertices;
         this.transformations = transformations;

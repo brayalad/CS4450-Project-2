@@ -94,9 +94,9 @@ public class Translation extends AbstractTransformation implements Transformatio
      */
     @Override
     public String toString(){
-        return "Translation:\n" +
+        return "\nTranslation:\n" +
                 "\tX:\t" + dx + "\n" +
-                "\tY:\t" + dy + "\n";
+                "\tY:\t" + dy;
     }
 
 }
